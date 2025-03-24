@@ -68,6 +68,8 @@
 ![concept1](assets/concept1.png)
 ![concept2](assets/concept2.png)
 
+## 作者
+Wesley WONG
 
 ## 授權說明
 
