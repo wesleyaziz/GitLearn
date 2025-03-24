@@ -17,7 +17,10 @@
    - git init 倉庫初始化
    - git add/status 文件管理
    - git commit 提交更改
-   - git log/reset/reflog 版本控制
+   - git log/reset/revert 版本控制
+   - git stash 暫時存儲
+   - git restore/clean 文件恢復
+   - git diff 差異比較
    - .gitignore 忽略文件配置
 
 3. [分支管理](branch-management.md)
@@ -69,6 +72,7 @@
 ![concept2](assets/concept2.png)
 
 ## 作者
+
 Wesley WONG
 
 ## 授權說明

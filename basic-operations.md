@@ -70,6 +70,66 @@ git log --pretty=oneline --abbrev-commit
 
 - `git reflog` : 查看所有操作歷史，包括已刪除的提交記錄
 
+## 版本回退
+
+### git reset vs git revert
+
+兩者都可以用來撤銷更改，但使用方式和影響範圍不同：
+
+#### git reset
+
+- 直接移除指定的提交
+- 會改變提交歷史
+- 適用於尚未推送到遠程的提交
+- 三種模式：
+  - `--soft`: 只重置 HEAD
+  - `--mixed`: 重置 HEAD 和暫存區（默認）
+  - `--hard`: 重置 HEAD、暫存區和工作目錄
+
+```bash
+# 回到指定提交
+git reset --hard <commitID>
+
+# 回退一個版本
+git reset --hard HEAD^
+```
+
+#### git revert
+
+- 創建新的提交來撤銷之前的修改
+- 不改變提交歷史
+- 適用於已推送到遠程的提交
+- 更安全的回退方式
+
+```bash
+# 撤銷指定的提交
+git revert <commitID>
+
+# 撤銷多個提交
+git revert <commitID1>..<commitID2>
+
+# 只撤銷但不自動提交
+git revert -n <commitID>
+```
+
+### 使用場景比較
+
+1. git reset 適用於：
+
+   - 本地開發時的版本回退
+   - 清理本地提交歷史
+   - 需要完全移除某些提交時
+
+2. git revert 適用於：
+   - 已推送到遠程的提交回退
+   - 團隊協作中的版本回退
+   - 需要保留完整歷史記錄時
+
+> 注意：
+>
+> - git reset 會改變提交歷史，不要用於已推送的提交
+> - git revert 會產生新的提交，適合用於共享分支
+
 ## 忽略文件配置
 
 ### .gitignore
@@ -117,3 +177,35 @@ build/
 - `git diff --staged` : 查看暫存區與最後一次提交的差異
 - `git diff <commit1> <commit2>` : 比較兩個提交之間的差異
 - `git diff <branch1> <branch2>` : 比較兩個分支之間的差異
+
+## 暫時存儲 (git stash)
+
+### 基本用法
+
+- `git stash` : 暫時存儲當前工作目錄的修改
+- `git stash save "描述文字"` : 存儲時添加描述信息
+- `git stash list` : 查看所有暫存的修改
+- `git stash pop` : 恢復最近一次暫存的修改，並刪除該暫存
+- `git stash apply` : 恢復最近一次暫存的修改，但保留暫存
+- `git stash drop` : 刪除最近一次的暫存
+- `git stash clear` : 清除所有暫存
+
+### 進階操作
+
+- `git stash show` : 查看最近一次暫存的內容
+- `git stash show -p` : 查看最近一次暫存的詳細差異
+- `git stash apply stash@{n}` : 恢復指定的暫存
+- `git stash drop stash@{n}` : 刪除指定的暫存
+- `git stash branch <分支名>` : 基於暫存創建新分支
+
+### 使用場景
+
+1. 需要臨時切換分支處理其他任務
+2. 當前工作未完成但需要先提交其他修改
+3. 想要在不同分支重用某些修改
+
+> 提示：
+>
+> - stash 操作只會存儲已追蹤的文件修改
+> - 使用 `git stash -u` 可以同時存儲未追蹤的文件
+> - 使用 `git stash -a` 可以存儲所有文件（包括被忽略的文件）
