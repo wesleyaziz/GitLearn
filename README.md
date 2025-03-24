@@ -68,14 +68,6 @@
 ![concept1](assets/concept1.png)
 ![concept2](assets/concept2.png)
 
-## 貢獻指南
-
-歡迎提供改進建議和內容補充，請遵循以下步驟：
-
-1. Fork 本專案
-2. 創建新的分支
-3. 提交您的修改
-4. 發送 Pull Request
 
 ## 授權說明
 
